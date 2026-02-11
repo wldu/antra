@@ -19,6 +19,8 @@
         .wrapper {
             display: flex;
             align-items: center;
+            width: 30%;
+            margin-left: 40%;
         }
         .inner {
             min-width: 20px;
@@ -46,6 +48,7 @@
             margin-bottom: 10px;
         }
         .checkbox{
+            display: flex;
             position: relative;
             color: #333;            
             margin-bottom: 5px;
@@ -57,7 +60,7 @@
             display: inline;
             position: relative;
             width: 30;
-            margin-left: 20px;
+            margin-left: 50px;
         }
         .register-txt{            
             background-color: rgb(12, 140, 245);
@@ -109,7 +112,9 @@
                 <input type="text" class="form-control" placeholder="Confirm Password" />
             </div>
             <div class="checkbox">
-                <input type="checkbox" > <span class="boldspan">I Agree</span> 
+                <div>
+                    <input type="checkbox" > <span class="boldspan">I Agree</span> 
+                </div>
                 <div class="terms"> 
                     By clicking <label class="register-txt">Register</label>, you agree the <a href="">Terms and Conditions</a> set out by this site, including our Cookie Use
                 </div>
