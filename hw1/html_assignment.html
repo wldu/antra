@@ -17,13 +17,12 @@
             display: block;
         }
         .wrapper {
-            min-height: 100vh;
             display: flex;
             align-items: center;
         }
         .inner {
-            min-width: 50px;
-            max-width: 150;
+            min-width: 20px;
+            max-width: 50;
             margin: auto;
             padding-top: 68px;
             padding-bottom: 48px;
@@ -37,7 +36,7 @@
         .form-group .form-wrapper {
             width: 50%;
         }
-        .form-control {
+        .form-control, .signin, .register {
             border: 1px solid #ccc;
             display: block;
             width: 100%;
@@ -48,7 +47,8 @@
         }
         .checkbox{
             position: relative;
-            color: #333;
+            color: #333;            
+            margin-bottom: 5px;
         }
         .boldspan{
             font-weight: bold;
@@ -57,16 +57,23 @@
             display: inline;
             position: relative;
             width: 30;
-            margin-left: 20%;
-            margin-top: 0;
+            margin-left: 20px;
         }
-        .register{
+        .register-txt{            
             background-color: rgb(12, 140, 245);
             color: white;
         }
+        .register {            
+            background-color: rgb(12, 140, 245);
+        }
         .signin{
             background-color: rgb(38, 202, 9);
+        }
+        .btn-txt{
             color: white;
+            text-align: center;
+            font-size: x-large;
+            padding-top: 5px;
         }
         .inner h3 {
             font-size: 22px;
@@ -80,35 +87,39 @@
 <body>
     <div class="wrapper">
         <div class="inner">
-        <h3 class="signup">Sign Up</h3>
-        <div class="form-group">
-            <div class="form-wrapper">
-                <input class="form-control" placeholder="First Name" /> 
+            <h3 class="signup">Sign Up</h3>
+            <div class="form-group">
+                <div class="form-wrapper">
+                    <input class="form-control" placeholder="First Name" /> 
+                </div>
+                <div class="form-wrapper">
+                    <input class="form-control" placeholder="Last Name" />
+                </div>
             </div>
             <div class="form-wrapper">
-                <input class="form-control" placeholder="Last Name" />
+                <input type="text" class="form-control" placeholder="Mobile No." />
             </div>
-        </div>
-        <div class="form-wrapper">
-            <input type="text" class="form-control" placeholder="Mobile No." />
-        </div>
-        
-        <div class="form-wrapper">
-            <input type="text" class="form-control" placeholder="Email Address" />
-        </div>
-        
-        <div class="form-wrapper">
-            <input type="text" class="form-control" placeholder="Password" /> 
-            <input type="text" class="form-control" placeholder="Confirm Password" />
-        </div>
-        <div class="checkbox">
-            <input type="checkbox" > <span class="boldspan">I Agree</span> 
-            <span class="terms"> By clicking <label class="register">Register</label>Register, you agree the <a href="">Terms and Conditions</a> set out by this site, including our Cookie Use</span>
-        </div>
-        <div class="btns">
-            <button type="button" class="register">Register</button> 
-            <button type="button" class="signin">Sign In</button>
-        </div>
+            
+            <div class="form-wrapper">
+                <input type="text" class="form-control" placeholder="Email Address" />
+            </div>
+            
+            <div class="form-wrapper">
+                <input type="text" class="form-control" placeholder="Password" /> 
+                <input type="text" class="form-control" placeholder="Confirm Password" />
+            </div>
+            <div class="checkbox">
+                <input type="checkbox" > <span class="boldspan">I Agree</span> 
+                <div class="terms"> 
+                    By clicking <label class="register-txt">Register</label>, you agree the <a href="">Terms and Conditions</a> set out by this site, including our Cookie Use
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-wrapper">
+                    <label for="register" class="register btn-txt"><label class="">Register</label>
+                </div> 
+                <div class="form-wrapper signin btn-txt">Sign In</div>
+            </div>
         </div>
     </div>
 </body>
