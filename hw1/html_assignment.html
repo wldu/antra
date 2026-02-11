@@ -5,28 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <style>
-        #container{
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            color: #666;
+            font-size: 13px;
+            margin: 0;
+        }
+        div{
+            display: block;
+        }
+        .wrapper {
+            min-height: 100vh;
             display: flex;
+            align-items: center;
+        }
+        .inner {
+            min-width: 50px;
+            max-width: 150;
+            margin: auto;
+            padding-top: 68px;
+            padding-bottom: 48px;
+        }
+        .form-group { 
+            display: flex;
+        }
+        .form-group .form-wrapper:first-child {
+            margin-right: 20px;
+        }
+        .form-group .form-wrapper {
+            width: 50%;
+        }
+        .form-control {
+            border: 1px solid #ccc;
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .checkbox{
+            position: relative;
+            color: #333;
+        }
+        .boldspan{
+            font-weight: bold;
+        }
+        .terms{
+            display: inline;
+            position: relative;
+            width: 30;
+            margin-left: 20%;
+            margin-top: 0;
+        }
+        .register{
+            background-color: rgb(12, 140, 245);
+            color: white;
+        }
+        .signin{
+            background-color: rgb(38, 202, 9);
+            color: white;
+        }
+        .inner h3 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 10px;
+            color: black;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <span>Sign Up</span>
-        <br />
-        <input placeholder="First Name" /> <input placeholder="Last Name" />
-        <br />
-        <input type="text" placeholder="Mobile No." />
-        <br />
-        <input type="text" placeholder="Email Address" />
-        <br />
-        <input type="text" placeholder="Password" /> <input type="text" placeholder="Confirm Password" />
-        <br />
-        <input type="checkbox" > I Agree 
-        <br />
-        <span> By clicking Register, you agree the <a href="">Terms and Conditions</a> set out by this site, including our Cookie Use</span>
-        <br />
-        <button type="button">Register</button> <button type="button">Sign In</button>
+    <div class="wrapper">
+        <div class="inner">
+        <h3 class="signup">Sign Up</h3>
+        <div class="form-group">
+            <div class="form-wrapper">
+                <input class="form-control" placeholder="First Name" /> 
+            </div>
+            <div class="form-wrapper">
+                <input class="form-control" placeholder="Last Name" />
+            </div>
+        </div>
+        <div class="form-wrapper">
+            <input type="text" class="form-control" placeholder="Mobile No." />
+        </div>
+        
+        <div class="form-wrapper">
+            <input type="text" class="form-control" placeholder="Email Address" />
+        </div>
+        
+        <div class="form-wrapper">
+            <input type="text" class="form-control" placeholder="Password" /> 
+            <input type="text" class="form-control" placeholder="Confirm Password" />
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" > <span class="boldspan">I Agree</span> 
+            <span class="terms"> By clicking <label class="register">Register</label>Register, you agree the <a href="">Terms and Conditions</a> set out by this site, including our Cookie Use</span>
+        </div>
+        <div class="btns">
+            <button type="button" class="register">Register</button> 
+            <button type="button" class="signin">Sign In</button>
+        </div>
+        </div>
     </div>
 </body>
 </html>
