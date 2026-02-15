@@ -388,8 +388,8 @@ function getLetterCount(str) {
 }
 
 // test getLetterCount
-let str = 'asdfjklasdfjkluiop'
-console.log(getLetterCount(str));
+// let str = 'asdfjklasdfjkluiop'
+// console.log(getLetterCount(str));
 
 /*
 18. Write a function for searching JavaScript arrays with a binary search. 
@@ -431,10 +431,275 @@ function getLargerElements(arr, num) {
 }
 
 // test getLargerElements
-let arr = [0,1,2,3,4,5,6,7,8,9]
-for(let i = 0; i < 11; i++) {
-    console.log(i, getLargerElements(arr, i));
+// let arr = [0,1,2,3,4,5,6,7,8,9]
+// for(let i = 0; i < 11; i++) {
+//     console.log(i, getLargerElements(arr, i));
+// }
+
+
+/*
+20. Write a JavaScript function that generates a string id (specified length) of random characters. 
+Sample character list: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" 
+*/
+function generateId(length) {
+    let ori = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let end = ori.length + 1;
+    let ans = '';
+    for(let i = 0; i < length; i++) {
+        let cur = Math.floor(Math.random() * end);
+        ans = ans + ori.charAt(cur);
+    }
+    return ans;
 }
+
+// test generateId
+for(let i = 0; i < 10; i++) {
+    let cur = []
+    for(let j = 1; j < 10; j++) {
+        cur.push(generateId(8));
+    }
+    console.log(cur);
+}
+
+
+/*
+21. Write a JavaScript function to get all possible subset with a fixed length (for example 2) combinations in an array. 
+Sample array: [1, 2, 3] and subset length is 2 
+Expected output: [[2, 1], [3, 1], [3, 2]]
+*/
+function getCombinationFixLength(arr, n) {
+    if(arr.length <= n) return [arr];
+    let ans = [], path = [];
+    generateCombinations(arr, 0, n, path, ans);
+    return ans;
+}
+function generateCombinations(arr, i, n, path, ans) {
+    if(n == 0) {
+        ans.push([...path]);
+        return ;
+    }
+    if(i >= arr.length) return ;
+    // not enough elements left, cutoff
+    if(i + n > arr.length) return ;
+    // arr[i] not selected
+    generateCombinations(arr, i + 1, n, path, ans);
+    // console.log(path);
+    // arr[i] selected 
+    path.push(arr[i]);
+    generateCombinations(arr, i + 1, n - 1, path, ans);
+    path.pop();
+}
+
+// test getCombinationFixLength
+// let arr = [1, 2, 3], n = 2;
+// console.log(arr, n);
+// console.log(getCombinationFixLength(arr, n));
+// arr = [1, 2, 3, 4, 5, 6];
+// n = 3;
+// console.log(arr, n);
+// console.log(getCombinationFixLength(arr, n));
+
+/*
+22. Write a JavaScript function that accepts two arguments, a string and a letter and the function will count the number of occurrences of the specified letter within the string. 
+Sample arguments: 'microsoft.com', 'o' 
+Expected output: 3 
+*/
+function countOccurrence(str, pattern) {
+    if(str.length < pattern.length) return 0;
+    let i = -1, length = str.length, ans = 0;
+    while(i < length) {
+        i = str.indexOf(pattern, i + 1, length);
+        if(i != -1) ans++;
+        else break;
+    }
+    return ans;
+}
+
+// test countOccurrence
+// console.log(countOccurrence('microsoft.com', 'o'));
+
+/*
+23. Write a JavaScript function to find the first not repeated character. 
+Sample arguments: 'abacddbec' 
+Expected output: 'e' 
+*/
+function getFirstRepeat(str) {
+    let map = {};
+    for(let c of str) {
+        if(map[c]) map[c] = map[c] + 1;
+        else map[c] = 1;
+    }
+    for(let c of str) {
+        if(map[c] == 1) return c;
+    }
+}
+
+// test getFirstRepeat
+// console.log(getFirstRepeat('abacddbec'));
+
+
+/*
+24. Write a JavaScript function to apply Bubble Sort algorithm. 
+Note: According to wikipedia "Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that works by repeatedly stepping through the list to be sorted, comparing each pair of adjacent items and swapping them if they are in the wrong order". 
+Sample array: [12, 345, 4, 546, 122, 84, 98, 64, 9, 1, 3223, 455, 23, 234, 213]
+Expected output: [3223, 546, 455, 345, 234, 213, 122, 98, 84, 64, 23, 12, 9, 4, 1]
+*/
+function bubbleSort(arr) {
+    if(arr.length < 2) return arr;
+    let end = arr.length - 1;
+    for(let i = end; i > 0; i--) {
+        for(let j = 0; j < i; j++) {
+            if(arr[j] < arr[j + 1]) {
+                swap(arr, j, j + 1);
+            }
+        }
+    }
+    function swap(arr, i, j) {
+        let cur = arr[i];
+        arr[i] = arr[j];
+        arr[j] = cur;
+    }
+    return arr;
+}
+
+// test bubbleSort
+// let arr = [12, 345, 4, 546, 122, 84, 98, 64, 9, 1, 3223, 455, 23, 234, 213];
+// console.log(bubbleSort(arr));
+
+
+
+/*
+25. Write a JavaScript function that accept a list of country names as input and returns the longest country name as output. 
+Sample function: Longest_Country_Name(["Australia", "Germany", "United States of America"])
+Expected output: "United States of America"
+*/
+function getLongestCountryName(countries) {
+    let ans = '';
+    for(let s of countries) {
+        if(s.length > ans.length) {
+            ans = s;
+        }
+    }
+    return ans;
+}
+
+// test getLongestCountryName
+// let countries = ["Australia", "Germany", "United States of America"];
+// console.log(getLongestCountryName(countries));
+
+
+/*
+26. Write a JavaScript function to find longest substring in a given a string without repeating characters. 
+*/
+function getLongestSubstring(str) {
+    let length = str.length;
+    if(length < 2) return length;
+    let map = {};
+    let i = 0, j = 0, cur = 0, max = 0;
+    // sliding window
+    while(j < length) {
+        let c = str.charAt(j++);
+        if(map[c]) map[c] = map[c] + 1;
+        else map[c] = 1;
+        while(map[c] > 1) {
+            map[str.charAt(i++)]--;
+        }
+        max = Math.max(max, j - i)
+    }
+    return max;
+}
+
+// test getLongestSubstring
+// let s = "abcabcbb";
+// console.log(s, getLongestSubstring(s));
+// s = "bbbbb";
+// console.log(s, getLongestSubstring(s));
+// s = "pwwkew";
+// console.log(s, getLongestSubstring(s));
+
+
+
+/*
+27. Write a JavaScript function that returns the longest palindrome in a given string. 
+Note: According to Wikipedia "In computer science, the longest palindromic substring or longest symmetric factor problem 
+is the problem of finding a maximum-length contiguous substring of a given string that is also a palindrome. 
+For example, the longest palindromic substring of "bananas" is "anana". The longest palindromic substring is 
+not guaranteed to be unique; for example, in the string "abracadabra", there is no palindromic substring with length 
+greater than three, but there are two palindromic substrings with length three, namely, "aca" and "ada".
+In some applications it may be necessary to return all maximal palindromic substrings (that is, all substrings that 
+are themselves palindromes and cannot be extended to larger palindromic substrings) rather than returning only one 
+substring or returning the maximum length of a palindromic substring.
+*/
+// Manacher algorithm
+// return one of the longest palindrome
+function getLongestPalindrome(s) {
+    let length = s.length;
+    if(length < 2) return s;
+    length = (length<<1) + 1;
+    let ms = getManacherCharArray(s, length);
+    let p = new Array(length).fill(0);
+    let maxLen = 0, end = 0;
+    for(let i = 0, c = 0, r = 0, len; i < length; i++) {
+        len = r > i ? Math.min(p[c * 2 - i], r - i) : 1;
+        while(i + len < length && i - len >= 0 && ms[i + len] == ms[i - len]) len++;
+        if(i + len > r) {
+            r = i + len;
+            c = i;
+        }
+        p[i] = len;
+        if(len > maxLen) {
+            maxLen = len - 1;
+            end = (i + len - 1) / 2;
+        }
+    }
+    return s.substring(end - maxLen, end);
+}
+function getManacherCharArray(s, length) {
+    let ss = new Array(length).fill(0);
+    for(let i = 0, j = 0; i < length; i++) {
+        ss[i] = (i&1) == 1 ? s.charAt(j++) : '#';
+    }
+    return ss;
+}
+
+// test getLongestPalindrome
+// s = 'bananas';
+// console.log(s, getLongestPalindrome(s));
+// s = 'abracadabra';
+// console.log(s, getLongestPalindrome(s));
+// s = 'bananas';
+// console.log(s, getLongestPalindrome(s));
+// s = 'babad';
+// console.log(s, getLongestPalindrome(s));
+
+/*
+28. Write a JavaScript program to pass a 'JavaScript function' as parameter. 
+*/
+function foo(fn) {
+    fn();
+}
+
+function bar() {
+    console.log("bar passed as parameter");
+}
+
+// test foo
+// foo(bar);
+
+
+/*
+29. Write a JavaScript function to get the function name. 
+*/
+function getFunctionName(fn) {
+    return fn.name;
+}
+
+// test getFunctionName
+// console.log(getFunctionName(getFunctionName));
+// console.log(getFunctionName(bar));
+// console.log(getFunctionName(foo));
+console.log(getFunctionName(bubbleSort));
+
 
 
 
