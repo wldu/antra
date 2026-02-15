@@ -26,7 +26,7 @@ div{
     display: flex;
 }
 .form-group .form-wrapper:first-child {
-    margin-right: 20px;
+    margin-right: 2px;
 }
 .form-group .form-wrapper {
     width: 50%;
@@ -80,4 +80,12 @@ div{
     margin-bottom: 10px;
     color: black;
     letter-spacing: 2px;
+}
+.full-name {
+    display: flex;
+    flex-wrap: wrap;
+}
+.name {
+    min-width: 100px;
+    flex: 1;
 }
