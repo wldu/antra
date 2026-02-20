@@ -7,8 +7,7 @@ class WhacAMoleModel {
         // console.log(this.scores, 'scores');
     }
     increment(num) {
-        this.scores++;
-        console.log('clicked');
+        this.scores += num;
         console.log(num, this.scores);
     }
 }
@@ -39,9 +38,7 @@ class WhacAMoleController {
         this.model = model;
         this.view = view;
         this.bindMoleEvent();
-        this.model.scores = 0;
-        this.timeLeft = 5;
-        this.view.render(this.model.scores, this.timeLeft);
+        this.view.render(this.model.scores, this.model.timeLeft);
     }
     reset() {
         
@@ -49,32 +46,31 @@ class WhacAMoleController {
     }
     
     startGame() {
+        this.model.timeLeft = 5;
+        this.model.scores = 0;
         let timer = setInterval(() => {
             this.model.timeLeft--;
-            console.log(this.model.timeLeft, this.model.scores);            
-            // this.view.render(this.scores, this.timeLeft)
+            console.log('here', this.model.timeLeft, this.model.scores);            
+            this.view.render(this.model.scores, this.model.timeLeft)
             if(this.model.timeLeft <= 0) {
                 clearInterval(timer);
             }
         }, 1000);
-        
     }
     
     bindMoleEvent() {
         this.view.moles.forEach((mole) => {
             this.view.bindListener(mole, ()=> {
-                this.model.scores += 1;
                 this.model.increment(1);
-            console.log('clicked');
-            console.log(this.model.scores);
+            // console.log(this.model.scores);
             });
         });
         this.view.bindListener(this.view.buttonStart, ()=> {
                 let timer = setInterval(() => {
-                this.timeLeft--;
-                console.log(this.timeLeft, this.scores);            
-                // this.view.render(this.scores, this.timeLeft)
-                if(this.timeLeft <= 0) {
+                this.model.timeLeft--;
+                console.log(this.model.timeLeft, this.model.scores); 
+                this.view.render(this.model.scores, this.model.timeLeft);
+                if(this.model.timeLeft <= 0) {
                     clearInterval(timer);
                     // this.view.moles.forEach(mole, ()=>{
                     //     remove event
@@ -86,8 +82,8 @@ class WhacAMoleController {
 
 }
 
-const model = new WhacAMoleModel();
 const view = new WhacAMoleView();
+const model = new WhacAMoleModel(view);
 const controller = new WhacAMoleController(model, view);
 
 
