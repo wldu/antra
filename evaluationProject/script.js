@@ -1,14 +1,20 @@
+const START_TIME = 15, START_SCORES = 0;
+
 class WhacAMoleModel {
     scores;
     timeLeft;
     constructor() {
-        this.scores = 0;
-        this.timeLeft = 5;
+        this.scores = START_SCORES;
+        this.timeLeft = START_TIME;
         // console.log(this.scores, 'scores');
     }
     increment(num) {
         this.scores += num;
-        console.log(num, this.scores);
+        // console.log(num, this.scores, 'increment');
+    }
+    reset() {
+        this.timeLeft = START_TIME;
+        this.scores = START_SCORES;
     }
 }
 
@@ -17,10 +23,7 @@ class WhacAMoleView {
         this.buttonStart = document.querySelector("#btn-start");
         this.boxScore = document.querySelector(".box-score");
         this.timer = document.querySelector('.timer');
-        // this.moles = document.getElementsByClassName(".mole");
         this.moles = document.querySelectorAll('.box-moles .mole');
-        // console.log(typeof this.moles);
-        // console.log(this.moles);
     }
     render(scores, timeLeft) {
         this.boxScore.textContent = this.boxScore.textContent.split(' ').slice(0, 6).join(' ') + ' ' + scores;
@@ -37,44 +40,43 @@ class WhacAMoleController {
     constructor(model, view) {
         this.model = model;
         this.view = view;
-        this.bindMoleEvent();
+        this.bindMoleEvent(model, view);
         this.view.render(this.model.scores, this.model.timeLeft);
     }
-    reset() {
+    
+    showMole() {
         
-        // this.view.render(this.model.count, this.timeLeft);        
+        
+        
     }
     
-    startGame() {
-        this.model.timeLeft = 5;
-        this.model.scores = 0;
-        let timer = setInterval(() => {
-            this.model.timeLeft--;
-            console.log('here', this.model.timeLeft, this.model.scores);            
-            this.view.render(this.model.scores, this.model.timeLeft)
-            if(this.model.timeLeft <= 0) {
-                clearInterval(timer);
-            }
-        }, 1000);
-    }
-    
-    bindMoleEvent() {
-        this.view.moles.forEach((mole) => {
-            this.view.bindListener(mole, ()=> {
-                this.model.increment(1);
+    bindMoleEvent(model, view) {
+        view.moles.forEach((mole) => {
+            view.bindListener(mole, ()=> {
+                model.increment(1);
             // console.log(this.model.scores);
             });
         });
-        this.view.bindListener(this.view.buttonStart, ()=> {
-                let timer = setInterval(() => {
-                this.model.timeLeft--;
-                console.log(this.model.timeLeft, this.model.scores); 
-                this.view.render(this.model.scores, this.model.timeLeft);
-                if(this.model.timeLeft <= 0) {
+        
+        view.bindListener(view.buttonStart, ()=> {
+            model.reset();
+            let curPos = 1;
+            let timer = setInterval(() => {
+                model.timeLeft--;                
+                let showTimer = setInterval(()=> {   
+                    document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
+                    curPos = Math.floor(Math.random() * 12 + 1);
+                    console.log(curPos);
+                    document.querySelector('#mole' + curPos).style.backgroundImage = "url('./images/mole.jpg')";
+                    if(model.timeLeft <= 0) {
+                        document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
+                        clearInterval(showTimer);
+                    }
+                }, 200);
+                console.log(model.timeLeft, model.scores, 'timer'); 
+                view.render(model.scores, model.timeLeft);
+                if(model.timeLeft <= 0) {
                     clearInterval(timer);
-                    // this.view.moles.forEach(mole, ()=>{
-                    //     remove event
-                    // });
                 }
             }, 1000);
         });
