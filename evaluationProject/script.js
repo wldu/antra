@@ -1,4 +1,4 @@
-const START_TIME = 20;
+const START_TIME = 30;
 const START_SCORES = 0;
 
 class WhacAMoleModel {
