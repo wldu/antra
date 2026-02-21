@@ -1,4 +1,4 @@
-const START_TIME = 15, START_SCORES = 0;
+const START_TIME = 20, START_SCORES = 0;
 
 class WhacAMoleModel {
     scores;
@@ -6,11 +6,9 @@ class WhacAMoleModel {
     constructor() {
         this.scores = START_SCORES;
         this.timeLeft = START_TIME;
-        // console.log(this.scores, 'scores');
     }
     increment(num) {
         this.scores += num;
-        // console.log(num, this.scores, 'increment');
     }
     reset() {
         this.timeLeft = START_TIME;
@@ -27,7 +25,6 @@ class WhacAMoleView {
     }
     render(scores, timeLeft) {
         this.boxScore.textContent = this.boxScore.textContent.split(' ').slice(0, 6).join(' ') + ' ' + scores;
-        // console.log(this.boxScore.textContent);
         this.timer.textContent = timeLeft;
     }
     bindListener(elem, eventHandler) {
@@ -44,36 +41,29 @@ class WhacAMoleController {
         this.view.render(this.model.scores, this.model.timeLeft);
     }
     
-    showMole() {
-        
-        
-        
-    }
-    
     bindMoleEvent(model, view) {
+        let curPos = 1;
         view.moles.forEach((mole) => {
             view.bindListener(mole, ()=> {
-                model.increment(1);
-            // console.log(this.model.scores);
+                if('mole' + curPos == mole['id']) {
+                    model.increment(1);
+                }
             });
         });
         
         view.bindListener(view.buttonStart, ()=> {
-            model.reset();
-            let curPos = 1;
+            model.reset();            
             let timer = setInterval(() => {
                 model.timeLeft--;                
                 let showTimer = setInterval(()=> {   
                     document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
                     curPos = Math.floor(Math.random() * 12 + 1);
-                    console.log(curPos);
                     document.querySelector('#mole' + curPos).style.backgroundImage = "url('./images/mole.jpg')";
                     if(model.timeLeft <= 0) {
                         document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
                         clearInterval(showTimer);
                     }
-                }, 200);
-                console.log(model.timeLeft, model.scores, 'timer'); 
+                }, 1000);
                 view.render(model.scores, model.timeLeft);
                 if(model.timeLeft <= 0) {
                     clearInterval(timer);
