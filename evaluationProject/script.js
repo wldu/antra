@@ -1,4 +1,5 @@
-const START_TIME = 20, START_SCORES = 0;
+const START_TIME = 30;
+const START_SCORES = 0;
 
 class WhacAMoleModel {
     scores;
@@ -43,22 +44,31 @@ class WhacAMoleController {
     
     bindMoleEvent(model, view) {
         let curPos = 1;
+        let molesShown = [];
         view.moles.forEach((mole) => {
             view.bindListener(mole, ()=> {
-                if('mole' + curPos == mole['id']) {
+                if(molesShown.includes(mole)) {
                     model.increment(1);
                 }
             });
         });
         
         view.bindListener(view.buttonStart, ()=> {
-            model.reset();            
+            model.reset(); 
+            let elem = null;
             let timer = setInterval(() => {
                 model.timeLeft--;                
-                let showTimer = setInterval(()=> {   
-                    document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
+                let showTimer = setInterval(()=> {
+                    if(molesShown.length == 3) {
+                        while(molesShown.length > 0){
+                            elem = molesShown.shift();
+                            elem.style.backgroundImage = 'none';
+                        }
+                    }
                     curPos = Math.floor(Math.random() * 12 + 1);
-                    document.querySelector('#mole' + curPos).style.backgroundImage = "url('./images/mole.jpg')";
+                    elem = document.querySelector('#mole' + curPos)
+                    elem.style.backgroundImage = "url('./images/mole.jpg')";
+                    molesShown.push(elem);
                     if(model.timeLeft <= 0) {
                         document.querySelector('#mole' + curPos).style.backgroundImage = 'none';
                         clearInterval(showTimer);
