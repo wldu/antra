@@ -1,0 +1,6 @@
+<p>Welcome, {{ name }} !</p>
+Name: <input [(ngModel)]="name">
+Email: <input [(ngModel)]="email" >
+Date of birth: <input [(ngModel)]="dateOfBirth">
+<button (click)="save()">Save</button>
+<button (click)="reset()" [disabled]="!name && !email && !dateOfBirth">Clear</button>
