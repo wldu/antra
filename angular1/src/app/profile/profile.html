@@ -1,6 +1,6 @@
-<p>Welcome, {{ name }} !</p>
-Name: <input [(ngModel)]="name">
-Email: <input [(ngModel)]="email" >
-Date of birth: <input [(ngModel)]="dateOfBirth">
+<p>Welcome, {{ name.value }} !</p>
+Name: <input [formControl]="name">
+Email: <input [formControl]="email" >
+Date of birth: <input [formControl]="dateOfBirth">
 <button (click)="save()">Save</button>
-<button (click)="reset()" [disabled]="!name && !email && !dateOfBirth">Clear</button>
+<button (click)="reset()" [disabled]="!name.value && !email.value && !dateOfBirth.value">Clear</button>

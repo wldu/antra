@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -7,16 +8,20 @@ import { Component } from '@angular/core';
   styleUrl: './profile.css',
 })
 export class Profile {
-  name = "";
-  count = 0;
-  email = "";
-  dateOfBirth = "";
+  name: FormControl;
+  email: FormControl;
+  dateOfBirth: FormControl;
+  constructor() {
+    this.name = new FormControl('');
+    this.email = new FormControl('');
+    this.dateOfBirth = new FormControl('');
+  }
   save() {
-    console.log(this.name, this.dateOfBirth, this.email);
+    console.log(this.name.value, this.dateOfBirth.value, this.email.value);
   }
   reset() {
-    this.name = "";
-    this.dateOfBirth = "";
-    this.email = "";
+    this.name.reset();
+    this.dateOfBirth.reset();
+    this.email.reset();
   }
 }
